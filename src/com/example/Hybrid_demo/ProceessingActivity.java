@@ -33,7 +33,7 @@ public class ProceessingActivity extends PApplet{
         textFont(f);
         translate(width/2,height/2);
         rotate(theta);
-        textAlign(CENTER) ;
+        textAlign(CENTER);
         text(message,0,0);
         theta += 0.05;
     }
