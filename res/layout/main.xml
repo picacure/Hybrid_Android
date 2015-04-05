@@ -9,8 +9,14 @@
             android:layout_height="wrap_content"
             android:text="Hello World, MyActivity"
             />
+    <ImageView android:id="@+id/imageView1" android:layout_width="fill_parent" android:layout_height="200px"/>
+    
     <WebView android:id="@+id/myWebView"
              android:layout_width="fill_parent"
-             android:layout_height="fill_parent"></WebView>
+             android:layout_height="20dp">
+
+    </WebView>
+    <Button android:layout_width="300px" android:id="@+id/button1" android:text="Click" android:layout_height="60dp"/>
+
 </LinearLayout>
 
