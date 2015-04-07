@@ -16,7 +16,5 @@
              android:layout_height="20dp">
 
     </WebView>
-    <Button android:layout_width="300px" android:id="@+id/button1" android:text="Click" android:layout_height="60dp"/>
-
 </LinearLayout>
 
