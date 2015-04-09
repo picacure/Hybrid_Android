@@ -5,12 +5,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.Toast;
 
 import java.io.*;
-import java.net.URL;
-
 
 public class HelloWorldActivity extends Activity {
     /**
@@ -20,6 +19,10 @@ public class HelloWorldActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
+        //Remove title bar
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
