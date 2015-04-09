@@ -3,11 +3,8 @@ package com.example.Hybrid_demo;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -15,8 +12,6 @@ import android.widget.ImageView;
  * Created by admin on 15-4-5.
  */
 public class CameraActivity extends Activity {
-    private WebView myWebView;
-
     private static final int CAMERA_REQUEST = 1888;
     private ImageView imageView;
 
