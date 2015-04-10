@@ -46,31 +46,28 @@
     function getMousePos(el,e) {
         var p = {
             x: 50,
-            y: 50,
-            ang: 0
+            y: 50
         };
         if(e.changedTouches.length > 0){
             p = {
                 x: e.changedTouches[0].clientX,
-                y: e.changedTouches[0].clientY,
-                ang: 0
+                y: e.changedTouches[0].clientY
             }
         }
         else{
             if (e.pageX || e.pageY)
                 p = {
-                    x: e.pageX, y: e.pageY,
-                    ang: 0
+                    x: e.pageX, y: e.pageY
                 }
         }
-
-        p.ang = -Math.atan2(el.height - p.y, 0 + p.x);
 
         return p;
     }
 
     var w = document.querySelector("#wrapper");
     var p;
+
+
     w.ontouchstart = function (e) {
         p = getMousePos(w,e);
 

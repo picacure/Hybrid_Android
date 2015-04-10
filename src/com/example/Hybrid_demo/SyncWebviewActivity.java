@@ -6,9 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -20,6 +21,8 @@ public class SyncWebviewActivity extends Activity {
 
     private  WebView myWebView;
 
+    public DrawView dw;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         //Remove title bar
@@ -30,16 +33,27 @@ public class SyncWebviewActivity extends Activity {
 
         myWebView = (WebView) this.findViewById(R.id.syncwebview_wv);
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.addJavascriptInterface(new DrawView(this), "Android");
+        myWebView.addJavascriptInterface(new Proxy(this), "Android");
 
         myWebView.loadUrl("file:///android_asset/SyncWebview.html");
 
         FrameLayout fl = (FrameLayout)findViewById(R.id.syncwebview_fl);
-        final DrawView dw = new DrawView(this);
-
-
+        dw = new DrawView(this);
 
         fl.addView(dw);
+
+    }
+
+    public class Proxy{
+        private Context mCtx;
+
+        public  Proxy(Context context){
+            mCtx = context;
+        }
+
+        public void onGetPointsFromDom(float x,float y){
+            dw.setPoints(x,y);
+        }
     }
 
     public class DrawView extends View{
@@ -49,10 +63,11 @@ public class SyncWebviewActivity extends Activity {
 
         Paint p = new Paint();
 
+        public Handler handler = new Handler();
+
+
         public DrawView(Context context) {
             super(context);
-
-            setWillNotDraw(false);
         }
 
 
@@ -63,7 +78,6 @@ public class SyncWebviewActivity extends Activity {
             p.setColor(Color.RED);
 
             canvas.drawCircle(cX, cY, 15, p);
-
         }
 
         @Override
@@ -75,11 +89,20 @@ public class SyncWebviewActivity extends Activity {
             return true;
         }
 
-        public void onGetPointsFromDom(float x,float y){
+
+
+        public void setPoints(float x,float y){
             cX = x;
             cY = y;
 
-            invalidate();
+
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    // code here will run on UI thread
+                    dw.invalidate();
+                }
+            });
         }
 
     }
