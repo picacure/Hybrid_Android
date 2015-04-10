@@ -34,11 +34,11 @@
 
     </style>
 
-    <script src="js/debug.js"></script>
+    <!--<script src="js/debug.js"></script>-->
 </head>
 <body>
 <div id="wrapper">
-
+    This is Webview
 </div>
 
 
@@ -77,8 +77,6 @@
     };
     w.ontouchmove = function (e) {
         p = getMousePos(w,e);
-
-        console.log(p.x, p.y);
 
         Android.onGetPointsFromDom(p.x, p.y);
 

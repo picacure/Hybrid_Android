@@ -41,7 +41,7 @@
         style.top = '0';
         style.left = '0';
         style.width = '100%';
-        style.maxHeight = '200px';
+        style.maxHeight = '100px';
         style.boxSizing = 'border-box';
         style.font = '12px Courier New';
         style.backgroundColor = 'rgba(0,0,0,0.2)';

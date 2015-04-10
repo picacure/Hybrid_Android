@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -19,12 +18,12 @@ import android.widget.FrameLayout;
  */
 public class SyncWebviewActivity extends Activity {
 
-    private  WebView myWebView;
+    private WebView myWebView;
 
     public DrawView dw;
 
     @Override
-    public void onCreate(Bundle savedInstanceState){
+    public void onCreate(Bundle savedInstanceState) {
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
@@ -33,30 +32,28 @@ public class SyncWebviewActivity extends Activity {
 
         myWebView = (WebView) this.findViewById(R.id.syncwebview_wv);
         myWebView.getSettings().setJavaScriptEnabled(true);
-        myWebView.addJavascriptInterface(new Proxy(this), "Android");
+        myWebView.addJavascriptInterface(new Proxy(), "Android");
 
         myWebView.loadUrl("file:///android_asset/SyncWebview.html");
 
-        FrameLayout fl = (FrameLayout)findViewById(R.id.syncwebview_fl);
+        FrameLayout fl = (FrameLayout) findViewById(R.id.syncwebview_fl);
         dw = new DrawView(this);
 
         fl.addView(dw);
 
     }
 
-    public class Proxy{
-        private Context mCtx;
+    public class Proxy {
 
-        public  Proxy(Context context){
-            mCtx = context;
+        public Proxy() {
         }
 
-        public void onGetPointsFromDom(float x,float y){
-            dw.setPoints(x,y);
+        public void onGetPointsFromDom(float x, float y) {
+            dw.setPoints(x, y);
         }
     }
 
-    public class DrawView extends View{
+    public class DrawView extends View {
 
         public float cX = 40;
         public float cY = 40;
@@ -65,6 +62,13 @@ public class SyncWebviewActivity extends Activity {
 
         public Handler handler = new Handler();
 
+        private Runnable ru = new Runnable() {
+            @Override
+            public void run() {
+                invalidate();
+            }
+        };
+
 
         public DrawView(Context context) {
             super(context);
@@ -72,7 +76,7 @@ public class SyncWebviewActivity extends Activity {
 
 
         @Override
-        public void onDraw(Canvas canvas){
+        public void onDraw(Canvas canvas) {
             super.onDraw(canvas);
 
             p.setColor(Color.RED);
@@ -81,7 +85,7 @@ public class SyncWebviewActivity extends Activity {
         }
 
         @Override
-        public boolean onTouchEvent(MotionEvent event){
+        public boolean onTouchEvent(MotionEvent event) {
             cX = event.getX();
             cY = event.getY();
 
@@ -89,20 +93,11 @@ public class SyncWebviewActivity extends Activity {
             return true;
         }
 
-
-
-        public void setPoints(float x,float y){
+        public void setPoints(float x, float y) {
             cX = x;
             cY = y;
 
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    // code here will run on UI thread
-                    dw.invalidate();
-                }
-            });
+            handler.post(ru);
         }
 
     }
