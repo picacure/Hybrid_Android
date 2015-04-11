@@ -60,6 +60,9 @@ public class SyncWebviewActivity extends Activity {
 
         Paint p = new Paint();
 
+
+        //Access UI from JavaScript on Android
+        //http://stackoverflow.com/questions/9446868/access-ui-from-javascript-on-android
         public Handler handler = new Handler();
 
         private Runnable ru = new Runnable() {
